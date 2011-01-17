@@ -10,15 +10,10 @@
  */
 class Kohana_Database_MySQLi extends Database_MySQL {
 
-	public static $is_mysqlnd;
-
 	public function connect()
 	{
 		if ($this->_connection)
 			return;
-
-		// mysqli_fetch_all is only available if we are using mysqlnd
-		Database_MySQLi::$is_mysqlnd = function_exists('mysqli_fetch_all');
 
 		// Extract the connection parameters, adding required variabels
 		extract($this->_config['connection'] + array(
@@ -37,8 +32,8 @@ class Kohana_Database_MySQLi extends Database_MySQL {
 
 		if ($persistent)
 		{
-			if ( ! Database_MySQLi::$is_mysqlnd)
-				throw new Database_Exception('MySQLND is required for persistent connections.');
+			if (version_compare(PHP_VERSION, '5.3', '<'))
+				throw new Database_Exception('PHP 5.3+ is required for persistent connections with mysqli.');
 
 			$host = 'p:'.$host;
 		}

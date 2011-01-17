@@ -71,7 +71,7 @@ class Kohana_Database_MySQLi_Result extends Database_Result {
 	public function as_array($key = NULL, $value = NULL)
 	{
 		// If we have MySQLND and want the results as an array use fetch_all()
-		if (Database_MySQLi::$is_mysqlnd AND $this->_as_object == FALSE)
+		if (function_exists('mysqli_fetch_all') AND $this->_as_object == FALSE)
 		{
 			if ($key === NULL AND $value === NULL)
 			{
