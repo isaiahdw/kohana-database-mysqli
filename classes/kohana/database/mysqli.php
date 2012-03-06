@@ -191,7 +191,7 @@ class Kohana_Database_MySQLi extends Database_MySQL {
 		// Make sure the database is connected
 		$this->_connection or $this->connect();
 
-		if (($value = $this->_connection->real_escape_string( (string) $value, $this->_connection)) === FALSE)
+		if (($value = $this->_connection->real_escape_string((string) $value)) === FALSE)
 		{
 			throw new Database_Exception('[:errno] :error', array(
 				':error' => $this->_connection->error,
